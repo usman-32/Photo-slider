@@ -3,183 +3,192 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise </title>
+<title>Birthday Surprise For Mirha</title>
 
 <style>
-body,html{
-margin:0;
-padding:0;
-font-family:Arial;
-text-align:center;
-background:black;
-color:white;
-overflow-x:hidden;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff5f6d, #ffc371);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
 }
 
-/* Button */
-button{
-padding:12px 25px;
-border:none;
-border-radius:25px;
-background:linear-gradient(45deg,#ff00cc,#ff0066);
-color:white;
-font-size:16px;
-cursor:pointer;
-margin-top:15px;
+.container {
+  display: none;
+  background: rgba(255,255,255,0.25);
+  padding: 20px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 420px;
+  z-index: 2;
 }
 
-/* Slider */
-.slider-3d{
-position:relative;
-width:200px;
-height:260px;
-margin:100px auto;
-transform-style:preserve-3d;
-animation:rotate 20s linear infinite;
-}
-@keyframes rotate{
-from{transform:rotateY(0deg);}
-to{transform:rotateY(360deg);}
-}
-.item{
-position:absolute;
-inset:0;
-border-radius:15px;
-overflow:hidden;
-border:2px solid pink;
-box-shadow:0 0 15px pink;
-}
-.item img{
-width:100%;
-height:100%;
-object-fit:cover;
+.start-box {
+  text-align: center;
+  z-index: 2;
 }
 
-/* Hide birthday section */
-#birthdaySurprise{display:none;}
-
-/* Birthday theme */
-body.birthday{
-background: linear-gradient(270deg,#ff9a9e,#fad0c4,#ffecd2);
-background-size:800% 800%;
-animation:gradientBG 20s ease infinite;
-}
-@keyframes gradientBG{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  background: #ff007f;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 5px;
 }
 
-.container{
-background: rgba(255,255,255,0.2);
-backdrop-filter: blur(10px);
-padding:20px;
-border-radius:20px;
-width:90%;
-max-width:400px;
-margin:auto;
-color:black;
-box-shadow:0 0 20px pink;
+h1 {
+  color: white;
 }
-.step{display:none;}
-.active{display:block;}
-.cake{font-size:90px;cursor:pointer;}
+
+/* PHOTO SLIDER */
+.slider {
+  width: 100%;
+  height: 220px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.slider img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: none;
+}
+
+.slider img.active {
+  display: block;
+}
+
+/* LETTER */
+.letter {
+  background: white;
+  color: black;
+  padding: 15px;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+
+/* Falling Hearts & Roses */
+.heart, .rose {
+  position: fixed;
+  top: -10px;
+  font-size: 20px;
+  animation: fall 6s linear infinite;
+  z-index: 1;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+/* Cake */
+.cake {
+  font-size: 50px;
+  animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
 </style>
 </head>
 
 <body>
 
-<!-- SONG BUTTON -->
-<h2>💖 Birthday Surprise For Mirha 💖</h2>
-<button onclick="playSong()">Play Song 🎶 Meri Aashiqui</button>
-
-<!-- YouTube Player -->
-<div id="ytplayer" style="display:none;">
-<iframe id="ytframe" width="0" height="0"
-src=""
-frameborder="0"
-allow="autoplay; encrypted-media"></iframe>
+<!-- START SCREEN -->
+<div class="start-box" id="startScreen">
+  <h1>💖 Click to See Surprise 💖</h1>
+  <button onclick="showSurprise()">Continue Surprise</button>
 </div>
 
-<!-- SLIDER -->
-<div id="slider">
-<div class="slider-3d" id="sliderBox">
-<div class="item" style="transform:rotateY(0deg) translateZ(300px);"><img src="https://picsum.photos/200/300?1"></div>
-<div class="item" style="transform:rotateY(60deg) translateZ(300px);"><img src="https://picsum.photos/200/300?2"></div>
-<div class="item" style="transform:rotateY(120deg) translateZ(300px);"><img src="https://picsum.photos/200/300?3"></div>
-<div class="item" style="transform:rotateY(180deg) translateZ(300px);"><img src="https://picsum.photos/200/300?4"></div>
-<div class="item" style="transform:rotateY(240deg) translateZ(300px);"><img src="https://picsum.photos/200/300?5"></div>
-<div class="item" style="transform:rotateY(300deg) translateZ(300px);"><img src="https://picsum.photos/200/300?6"></div>
-</div>
+<!-- MAIN PAGE -->
+<div class="container" id="surprisePage">
 
-<button onclick="continueSurprise()">Continue Surprise 🎁</button>
-</div>
+  <h1>🎉 Birthday Surprise For Mirha 🎉</h1>
 
-<!-- BIRTHDAY PAGE -->
-<div id="birthdaySurprise">
-<div class="container">
+  <div class="cake">🎂</div>
 
-<div id="step1" class="step active">
-<h2>Dear Mirha 💜</h2>
-<p>A Birthday Surprise</p>
-<button onclick="startSurprise()">Start Surprise</button>
-</div>
+  <!-- PHOTO SLIDER -->
+  <div class="slider">
+    <img src="https://i.imgur.com/1Q9Z1Zm.jpg" class="active">
+    <img src="https://i.imgur.com/9Xnt6dK.jpg">
+    <img src="https://i.imgur.com/XmQ0q9E.jpg">
+  </div>
 
-<div id="step2" class="step">
-<h3>Who is it?</h3>
-<input id="nameInput" placeholder="Type your name">
-<br>
-<button onclick="checkName()">Enter</button>
-</div>
+  <!-- AUDIO -->
+  <audio id="song" loop>
+    <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
+  </audio>
 
-<div id="step3" class="step">
-<h2>For My Sweet heart 🌹</h2>
-<div style="font-size:70px;cursor:pointer;" onclick="nextStep(4)">❤️</div>
-</div>
+  <h2>💌 Wishing Letter</h2>
+  <div class="letter">
+    Dear Mirha,<br><br>
+    You are my shining star ⭐<br>
+    May Allah bless you always 💖<br><br>
+    Love 🌹
+  </div>
 
-<div id="step4" class="step">
-<h2>Cut the Cake 🎂</h2>
-<div class="cake" onclick="nextStep(5)">🎂</div>
-</div>
+  <button onclick="shareWhatsApp()">💬 Share on WhatsApp</button>
 
-<div id="step5" class="step">
-<h2>💌 Wishing Letter</h2>
-<p style="background:white;color:black;padding:15px;border-radius:12px;">
-Dear Mirha,<br><br>
-You are my shining star ⭐<br>
-May Allah bless you always 💖<br><br>
-Love 🌹
-</p>
-</div>
-
-</div>
 </div>
 
 <script>
-// PLAY SONG ONLY WHEN CLICK
-function playSong(){
-document.getElementById("ytplayer").style.display="block";
-document.getElementById("ytframe").src="https://www.youtube.com/embed/ExxkKqLhY1w?autoplay=1";
+/* SHOW PAGE + AUTO SONG */
+function showSurprise() {
+  document.getElementById("startScreen").style.display = "none";
+  document.getElementById("surprisePage").style.display = "block";
+  document.getElementById("song").play();
 }
 
-// STOP SLIDER AND OPEN NEXT PAGE
-function continueSurprise(){
-document.getElementById("sliderBox").style.animation="none"; // stop rotate
-document.getElementById("slider").style.display="none"; // hide slider
-document.getElementById("birthdaySurprise").style.display="block";
-document.body.classList.add("birthday");
-}
+/* PHOTO SLIDER */
+let index = 0;
+const images = document.querySelectorAll(".slider img");
 
-// Steps
-function nextStep(n){
-document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));
-document.getElementById("step"+n).classList.add("active");
-}
-function startSurprise(){nextStep(2);}
-function checkName(){
-let n=document.getElementById("nameInput").value.toLowerCase();
-if(n.includes("noor")) nextStep(3);
-else alert("Type Mirha 😁");
+setInterval(() => {
+  images[index].classList.remove("active");
+  index = (index + 1) % images.length;
+  images[index].classList.add("active");
+}, 2500);
+
+/* FALLING HEARTS & ROSES */
+setInterval(() => {
+  let heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 500);
+
+setInterval(() => {
+  let rose = document.createElement("div");
+  rose.className = "rose";
+  rose.innerHTML = "🌹";
+  rose.style.left = Math.random() * 100 + "vw";
+  rose.style.animationDuration = (Math.random() * 3 + 3) + "s";
+  document.body.appendChild(rose);
+  setTimeout(() => rose.remove(), 6000);
+}, 800);
+
+/* WhatsApp Share */
+function shareWhatsApp() {
+  let url = window.location.href;
+  let text = "Happy Birthday Mirha ❤️ See my surprise for you!";
+  window.open("https://wa.me/?text=" + encodeURIComponent(text + " " + url));
 }
 </script>
 
