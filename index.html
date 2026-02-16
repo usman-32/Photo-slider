@@ -3,202 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Sliders 🎂</title>
+    <title>My Shining Star 🌟</title>
     <style>
-        :root {
-            --accent: #ff4d6d;
-            --glass: rgba(255, 255, 255, 0.1);
-        }
+        :root { --primary: #ff4d6d; --star-gold: #fff700; --deep-purple: #2d004d; }
+        
+        body, html { margin: 0; padding: 0; background: #050505; color: white; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background: #050505;
-            color: white;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        /* Falling Decorations */
+        .particle { position: fixed; top: -10%; z-index: 999; pointer-events: none; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* --- Countdown Section --- */
-        #countdown-screen {
-            position: fixed;
-            inset: 0;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 1s ease;
-        }
+        /* Navigation */
+        section { min-height: 100vh; display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+        #countdown-sec { display: flex; background: radial-gradient(circle, var(--deep-purple), #000); }
 
-        #timer {
-            font-size: 120px;
-            font-weight: 900;
-            text-shadow: 0 0 20px var(--accent);
-        }
+        /* 3D Photo Slider */
+        .slider-3d { position: relative; width: 180px; height: 260px; transform-style: preserve-3d; animation: rotate 25s linear infinite; margin: 80px 0; }
+        @keyframes rotate { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+        .item { position: absolute; inset: 0; border: 2px solid var(--primary); border-radius: 15px; overflow: hidden; box-shadow: 0 0 15px var(--primary); }
+        .item img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- Main Content Section --- */
-        #main-content {
+        /* Cake Section */
+        .cake-container { font-size: 120px; cursor: pointer; filter: drop-shadow(0 0 20px pink); transition: transform 0.3s; }
+        .cake-container:hover { transform: scale(1.1); }
+
+        /* Special Hidden Letter */
+        .hidden-letter {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid var(--star-gold);
+            max-width: 500px;
+            box-shadow: 0 0 40px rgba(255, 247, 0, 0.2);
             display: none;
-            width: 100vw;
-            height: 100vh;
-            perspective: 1500px;
-            background: radial-gradient(circle at center, #220011 0%, #050505 100%);
+            animation: fadeIn 2s ease;
         }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .header-text {
-            position: absolute;
-            top: 10%;
-            width: 100%;
-            text-align: center;
-            font-size: 2.5rem;
-            letter-spacing: 5px;
-            color: var(--accent);
-            text-transform: uppercase;
-        }
+        .shining-star { color: var(--star-gold); text-shadow: 0 0 10px var(--star-gold); font-size: 1.5rem; }
 
-        /* --- 3D Photo Slider --- */
-        .slider-container {
-            position: relative;
-            width: 200px;
-            height: 280px;
-            margin: 25vh auto;
-            transform-style: preserve-3d;
-            animation: rotateSlider 25s linear infinite;
+        .btn { 
+            background: linear-gradient(45deg, #ff4d6d, #ff758f);
+            color: white; border: none; padding: 15px 30px; 
+            border-radius: 50px; cursor: pointer; margin: 10px;
+            font-weight: bold; font-size: 1rem; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
         }
-
-        @keyframes rotateSlider {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
-        }
-
-        .slider-container:hover {
-            animation-play-state: paused;
-        }
-
-        .item {
-            position: absolute;
-            inset: 0;
-            border-radius: 12px;
-            border: 2px solid rgba(255,255,255,0.3);
-            box-shadow: 0 0 25px rgba(255, 77, 109, 0.4);
-            overflow: hidden;
-        }
-
-        .item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* --- Music Controls --- */
-        .controls {
-            position: absolute;
-            bottom: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            background: var(--glass);
-            padding: 20px 40px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        #playBtn {
-            background: var(--accent);
-            border: none;
-            color: white;
-            padding: 12px 35px;
-            border-radius: 30px;
-            font-size: 18px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-        }
-
-        #playBtn:hover {
-            transform: scale(1.1);
-            background: #ff758f;
-        }
-
-        .song-title {
-            margin-bottom: 10px;
-            font-size: 14px;
-            opacity: 0.8;
-            font-style: italic;
-        }
+        
+        #timer { font-size: 10rem; font-weight: 900; color: var(--primary); text-shadow: 0 0 30px var(--primary); }
     </style>
 </head>
-<body>
+<body onclick="spawnParticle()">
 
-    <div id="countdown-screen">
-        <p style="letter-spacing: 3px;">GET READY FOR PROPOSE DAY</p>
+    <section id="countdown-sec">
+        <h2 style="letter-spacing: 2px;">PREPARING YOUR UNIVERSE...</h2>
         <div id="timer">5</div>
-    </div>
+    </section>
 
-    <div id="main-content">
-        <div class="header-text">Birthday Sliders 🥳</div>
-        
-        <div class="slider-container">
-            <div class="item" style="transform: rotateY(0deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=1"></div>
-            <div class="item" style="transform: rotateY(45deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=2"></div>
-            <div class="item" style="transform: rotateY(90deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=3"></div>
-            <div class="item" style="transform: rotateY(135deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=4"></div>
-            <div class="item" style="transform: rotateY(180deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=5"></div>
-            <div class="item" style="transform: rotateY(225deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=6"></div>
-            <div class="item" style="transform: rotateY(270deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=7"></div>
-            <div class="item" style="transform: rotateY(315deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=8"></div>
+    <section id="slider-sec">
+        <h2 style="color: var(--primary);">🌹 Our Beautiful Journey 🌹</h2>
+        <div class="slider-3d">
+            <div class="item" style="transform: rotateY(0deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=1"></div>
+            <div class="item" style="transform: rotateY(45deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=2"></div>
+            <div class="item" style="transform: rotateY(90deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=3"></div>
+            <div class="item" style="transform: rotateY(135deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=4"></div>
+            <div class="item" style="transform: rotateY(180deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=5"></div>
+            <div class="item" style="transform: rotateY(225deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=6"></div>
+            <div class="item" style="transform: rotateY(270deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=7"></div>
+            <div class="item" style="transform: rotateY(315deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=8"></div>
         </div>
+        <button class="btn" onclick="showCake()">Tap to Cut the Cake 🎂</button>
+    </section>
 
-        <div class="controls">
-            <div class="song-title">🎵 Mere Jazbo Ki Jo Bhi Halat Hai</div>
-            <button id="playBtn" onclick="handleMusic()">Play Song 💖</button>
+    <section id="cake-sec">
+        <div class="cake-container" id="cakeEmoji" onclick="handleCakeCut()">🎂</div>
+        <h2 id="cakeText">Make a Wish... then Click!</h2>
+    </section>
+
+    <section id="letter-sec">
+        <div class="hidden-letter" id="letterCard">
+            <h2 class="shining-star">🌟 My Shining Star 🌟</h2>
+            <p style="line-height: 1.8; font-size: 1.1rem;">
+                🌹♥️ <i>"You don't know how much I love you. You are my shining star in every season."</i> ♥️🌹💜
+            </p>
+            <p style="color: #ffb3c1;">
+                No matter how dark the night gets, your smile lightens up my world. Every beat of my heart whispers your name.
+            </p>
+            <hr style="border: 0.5px solid var(--star-gold); margin: 20px 0;">
+            <h3>Will you stay my Aashiqui forever?</h3>
+            <button class="btn" onclick="sendWhatsApp('YES! Forever and Always! ❤️')">YES! Forever ❤️</button>
+            <button class="btn" onclick="sendWhatsApp('Of course! You are my everything 🌹')">You are my everything 🌹</button>
         </div>
-    </div>
+    </section>
 
-    <audio id="myAudio" loop>
+    <audio id="player" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        const timer = document.getElementById('timer');
-        const screen1 = document.getElementById('countdown-screen');
-        const screen2 = document.getElementById('main-content');
-        const audio = document.getElementById('myAudio');
-        const btn = document.getElementById('playBtn');
-
+        const player = document.getElementById('player');
+        
         // 1. Countdown Logic
         let count = 5;
-        const interval = setInterval(() => {
+        const countInterval = setInterval(() => {
             count--;
-            timer.innerText = count;
+            document.getElementById('timer').innerText = count;
             if(count <= 0) {
-                clearInterval(interval);
-                screen1.style.opacity = '0';
-                setTimeout(() => {
-                    screen1.style.display = 'none';
-                    screen2.style.display = 'block';
-                }, 1000);
+                clearInterval(countInterval);
+                navigate('slider-sec');
+                player.play().catch(e => console.log("Autoplay blocked, waiting for click"));
             }
         }, 1000);
 
-        // 2. Music Toggle
-        function handleMusic() {
-            if (audio.paused) {
-                audio.play();
-                btn.innerText = "Pause Song ⏸️";
-            } else {
-                audio.pause();
-                btn.innerText = "Play Song 💖";
-            }
+        function navigate(id) {
+            document.querySelectorAll('section').forEach(s => s.style.display = 'none');
+            document.getElementById(id).style.display = 'flex';
         }
+
+        function showCake() { navigate('cake-sec'); }
+
+        function handleCakeCut() {
+            document.getElementById('cakeEmoji').innerText = "🍰";
+            document.getElementById('cakeText').innerText = "Yum! Opening your letter...";
+            setTimeout(() => {
+                navigate('letter-sec');
+                document.getElementById('letterCard').style.display = 'block';
+            }, 1500);
+        }
+
+        function sendWhatsApp(ans) {
+            const phone = "923256437933";
+            const text = `My Shining Star, my answer is: ${ans}`;
+            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // Falling Hearts/Roses/Stars
+        function spawnParticle() {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            const types = ['🌹', '❤️', '🌟', '💜'];
+            p.innerHTML = types[Math.floor(Math.random() * types.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            p.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 5000);
+        }
+        setInterval(spawnParticle, 250);
     </script>
 </body>
 </html>
