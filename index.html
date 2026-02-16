@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Sliders 🎂</title>
+    <style>
+        :root {
+            --accent: #ff4d6d;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #050505;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Countdown Section --- */
+        #countdown-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+
+        #timer {
+            font-size: 120px;
+            font-weight: 900;
+            text-shadow: 0 0 20px var(--accent);
+        }
+
+        /* --- Main Content Section --- */
+        #main-content {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            perspective: 1500px;
+            background: radial-gradient(circle at center, #220011 0%, #050505 100%);
+        }
+
+        .header-text {
+            position: absolute;
+            top: 10%;
+            width: 100%;
+            text-align: center;
+            font-size: 2.5rem;
+            letter-spacing: 5px;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        /* --- 3D Photo Slider --- */
+        .slider-container {
+            position: relative;
+            width: 200px;
+            height: 280px;
+            margin: 25vh auto;
+            transform-style: preserve-3d;
+            animation: rotateSlider 25s linear infinite;
+        }
+
+        @keyframes rotateSlider {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        .slider-container:hover {
+            animation-play-state: paused;
+        }
+
+        .item {
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.3);
+            box-shadow: 0 0 25px rgba(255, 77, 109, 0.4);
+            overflow: hidden;
+        }
+
+        .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Music Controls --- */
+        .controls {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            background: var(--glass);
+            padding: 20px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        #playBtn {
+            background: var(--accent);
+            border: none;
+            color: white;
+            padding: 12px 35px;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        #playBtn:hover {
+            transform: scale(1.1);
+            background: #ff758f;
+        }
+
+        .song-title {
+            margin-bottom: 10px;
+            font-size: 14px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="countdown-screen">
+        <p style="letter-spacing: 3px;">GET READY FOR PROPOSE DAY</p>
+        <div id="timer">5</div>
+    </div>
+
+    <div id="main-content">
+        <div class="header-text">Birthday Sliders 🥳</div>
+        
+        <div class="slider-container">
+            <div class="item" style="transform: rotateY(0deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=1"></div>
+            <div class="item" style="transform: rotateY(45deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=2"></div>
+            <div class="item" style="transform: rotateY(90deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=3"></div>
+            <div class="item" style="transform: rotateY(135deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=4"></div>
+            <div class="item" style="transform: rotateY(180deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=5"></div>
+            <div class="item" style="transform: rotateY(225deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=6"></div>
+            <div class="item" style="transform: rotateY(270deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=7"></div>
+            <div class="item" style="transform: rotateY(315deg) translateZ(350px);"><img src="https://picsum.photos/200/300?random=8"></div>
+        </div>
+
+        <div class="controls">
+            <div class="song-title">🎵 Mere Jazbo Ki Jo Bhi Halat Hai</div>
+            <button id="playBtn" onclick="handleMusic()">Play Song 💖</button>
+        </div>
+    </div>
+
+    <audio id="myAudio" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const timer = document.getElementById('timer');
+        const screen1 = document.getElementById('countdown-screen');
+        const screen2 = document.getElementById('main-content');
+        const audio = document.getElementById('myAudio');
+        const btn = document.getElementById('playBtn');
+
+        // 1. Countdown Logic
+        let count = 5;
+        const interval = setInterval(() => {
+            count--;
+            timer.innerText = count;
+            if(count <= 0) {
+                clearInterval(interval);
+                screen1.style.opacity = '0';
+                setTimeout(() => {
+                    screen1.style.display = 'none';
+                    screen2.style.display = 'block';
+                }, 1000);
+            }
+        }, 1000);
+
+        // 2. Music Toggle
+        function handleMusic() {
+            if (audio.paused) {
+                audio.play();
+                btn.innerText = "Pause Song ⏸️";
+            } else {
+                audio.pause();
+                btn.innerText = "Play Song 💖";
+            }
+        }
+    </script>
+</body>
+</html>
