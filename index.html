@@ -16,7 +16,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* ===== BUTTON STYLE ===== */
+/* BUTTON STYLE */
 button{
 padding:12px 25px;
 border:none;
@@ -28,18 +28,21 @@ cursor:pointer;
 margin-top:15px;
 }
 
-/* ===== 3D PHOTO SLIDER ===== */
+/* 3D SLIDER */
 .slider-3d{
-position:relative;
+position:fixed;
+top:50%;
+left:50%;
+transform-style:preserve-3d;
+transform:translate(-50%,-50%);
 width:200px;
 height:260px;
-margin:100px auto;
-transform-style:preserve-3d;
 animation:rotate 20s linear infinite;
+z-index:-1;
 }
 @keyframes rotate{
-from{transform:rotateY(0deg);}
-to{transform:rotateY(360deg);}
+from{transform:translate(-50%,-50%) rotateY(0deg);}
+to{transform:translate(-50%,-50%) rotateY(360deg);}
 }
 .item{
 position:absolute;
@@ -55,10 +58,10 @@ height:100%;
 object-fit:cover;
 }
 
-/* ===== HIDE BIRTHDAY SURPRISE FIRST ===== */
+/* HIDE BIRTHDAY PAGE FIRST */
 #birthdaySurprise{display:none;}
 
-/* ===== BIRTHDAY SECOND CODE STYLE ===== */
+/* BIRTHDAY PAGE STYLE */
 body.birthday{
 background: linear-gradient(270deg,#ff9a9e,#fad0c4,#ffecd2);
 background-size:800% 800%;
@@ -70,6 +73,15 @@ animation:gradientBG 20s ease infinite;
 100%{background-position:0% 50%;}
 }
 
+/* CENTER SURPRISE BOX */
+.centerBox{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+flex-direction:column;
+}
+
 .container{
 background: rgba(255,255,255,0.2);
 backdrop-filter: blur(10px);
@@ -77,10 +89,10 @@ padding:20px;
 border-radius:20px;
 width:90%;
 max-width:400px;
-margin:auto;
 color:black;
 box-shadow:0 0 20px pink;
 }
+
 .step{display:none;}
 .active{display:block;}
 .cake{font-size:90px;cursor:pointer;}
@@ -89,8 +101,7 @@ box-shadow:0 0 20px pink;
 
 <body>
 
-<!-- ================= SONG + SLIDER SECTION ================= -->
-<h2>💖 Birthday Surprise  💖</h2>
+<h2>💖 Birthday Surprise for Amna 💖</h2>
 <p>Click Play Song to start surprise</p>
 
 <button onclick="playSong()">Play Song 🎶 Meri Aashiqui Tum Se Hi</button>
@@ -100,11 +111,10 @@ box-shadow:0 0 20px pink;
 <iframe id="ytframe" width="0" height="0"
 src=""
 frameborder="0"
-allow="autoplay; encrypted-media"
-allowfullscreen></iframe>
+allow="autoplay; encrypted-media"></iframe>
 </div>
 
-<!-- Photo Slider -->
+<!-- PHOTO SLIDER -->
 <div id="slider" style="display:none;">
 <div class="slider-3d">
 <div class="item" style="transform:rotateY(0deg) translateZ(300px);"><img src="https://picsum.photos/200/300?1"></div>
@@ -118,15 +128,17 @@ allowfullscreen></iframe>
 <button onclick="showBirthday()">Continue Surprise 🎁</button>
 </div>
 
-<!-- ================= YOUR BIRTHDAY SURPRISE CODE ================= -->
+
+<!-- ================= BIRTHDAY PAGE ================= -->
 <div id="birthdaySurprise">
+<div class="centerBox">
 
 <div class="container">
 
 <div id="step1" class="step active">
-<h2>Dear Amna💜</h2>
-<p>A Birthday Surprise</p>
-<button onclick="startSurprise()">Start Surprise</button>
+<h2>Dear Amna 💜</h2>
+<p>A Special Birthday Surprise</p>
+<button onclick="startSurprise()">Start Surprise 🎉</button>
 </div>
 
 <div id="step2" class="step">
@@ -148,37 +160,30 @@ allowfullscreen></iframe>
 <p>Tap the cake</p>
 </div>
 
-<!-- WISHING LETTER -->
 <div id="step5" class="step">
 <h2>💌 Wishing Letter</h2>
 <p style="background:white;color:black;padding:15px;border-radius:12px;">
-Dear Noor Fatima,<br><br>
-You are not only my sister but my best friend 💖  
+Dear Amna,<br><br>
+You are my special person 💖  
 May Allah bless you with happiness and success.  
 Always smile like a shining star ⭐  
 <br><br>
-Love,<br><b>🌹♥️</b>
+Love,<br><b>💜</b>
 </p>
 <button onclick="nextStep(6)">Final Surprise 🎉</button>
 </div>
 
 <div id="step6" class="step">
-<h2>💌 Letter for Noor Fatima</h2>
-<div id="letter"></div>
-<button onclick="showFinal()">Final Surprise 🎉</button>
-</div>
-  
-<div id="step6" class="step">
-<h2>🎉 HAPPY BIRTHDAy AMNA 🎉</h2>
-<p>Always smile like a shining star 🌹♥️💜</p>
+<h2>🎉 HAPPY BIRTHDAY AMNA 🎉</h2>
+<p>Always smile like a shining star 🌹💜</p>
 </div>
 
 </div>
 </div>
+</div>
 
-<!-- ================= JAVASCRIPT ================= -->
 <script>
-// PLAY SONG + SHOW SLIDER
+// PLAY SONG + SLIDER
 function playSong(){
 document.getElementById("ytplayer").style.display="block";
 document.getElementById("ytframe").src =
@@ -187,11 +192,16 @@ document.getElementById("ytframe").src =
 document.getElementById("slider").style.display="block";
 }
 
-// SHOW BIRTHDAY SURPRISE
+// SHOW BIRTHDAY PAGE
 function showBirthday(){
 document.getElementById("birthdaySurprise").style.display="block";
 document.body.classList.add("birthday");
-window.scrollTo(0, document.body.scrollHeight);
+
+// REMOVE ALL BUTTONS EXCEPT START SURPRISE
+document.querySelectorAll("button").forEach(b=>{
+if(b.innerText.includes("Start Surprise")) return;
+b.style.display="none";
+});
 }
 
 // STEP SYSTEM
@@ -206,8 +216,8 @@ nextStep(2);
 
 function checkName(){
 let n=document.getElementById("nameInput").value.toLowerCase();
-if(n.includes("noor")) nextStep(3);
-else alert("Type Amna 💜🌹");
+if(n.includes("amna")) nextStep(3);
+else alert("Type Amna 💜");
 }
 </script>
 
