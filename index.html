@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Shining Star 🌟</title>
+    <title>Birthday Special - Shining Star 🌟</title>
     <style>
-        :root { --primary: #ff4d6d; --star-gold: #fff700; --deep-purple: #2d004d; }
+        :root { --primary: #ff4d6d; --star-gold: #fff700; --deep-purple: #1a0033; }
         
         body, html { margin: 0; padding: 0; background: #050505; color: white; font-family: 'Poppins', sans-serif; overflow-x: hidden; }
 
@@ -25,9 +25,8 @@
 
         /* Cake Section */
         .cake-container { font-size: 120px; cursor: pointer; filter: drop-shadow(0 0 20px pink); transition: transform 0.3s; }
-        .cake-container:hover { transform: scale(1.1); }
-
-        /* Special Hidden Letter */
+        
+        /* Hidden Letter */
         .hidden-letter {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
@@ -35,64 +34,71 @@
             border-radius: 20px;
             border: 2px solid var(--star-gold);
             max-width: 500px;
-            box-shadow: 0 0 40px rgba(255, 247, 0, 0.2);
             display: none;
-            animation: fadeIn 2s ease;
+            animation: fadeIn 1.5s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .shining-star { color: var(--star-gold); text-shadow: 0 0 10px var(--star-gold); font-size: 1.5rem; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .btn { 
             background: linear-gradient(45deg, #ff4d6d, #ff758f);
             color: white; border: none; padding: 15px 30px; 
             border-radius: 50px; cursor: pointer; margin: 10px;
-            font-weight: bold; font-size: 1rem; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+            font-weight: bold; font-size: 1rem;
         }
         
-        #timer { font-size: 10rem; font-weight: 900; color: var(--primary); text-shadow: 0 0 30px var(--primary); }
+        #timer { font-size: 8rem; font-weight: 900; color: var(--primary); }
+        .song-info { margin-bottom: 15px; font-style: italic; color: var(--star-gold); }
     </style>
 </head>
 <body onclick="spawnParticle()">
 
     <section id="countdown-sec">
-        <h2 style="letter-spacing: 2px;">PREPARING YOUR UNIVERSE...</h2>
+        <h2 style="letter-spacing: 2px;">THE CELEBRATION STARTS IN...</h2>
         <div id="timer">5</div>
     </section>
 
     <section id="slider-sec">
-        <h2 style="color: var(--primary);">🌹 Our Beautiful Journey 🌹</h2>
-        <div class="slider-3d">
-            <div class="item" style="transform: rotateY(0deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=1"></div>
-            <div class="item" style="transform: rotateY(45deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=2"></div>
-            <div class="item" style="transform: rotateY(90deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=3"></div>
-            <div class="item" style="transform: rotateY(135deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=4"></div>
-            <div class="item" style="transform: rotateY(180deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=5"></div>
-            <div class="item" style="transform: rotateY(225deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=6"></div>
-            <div class="item" style="transform: rotateY(270deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=7"></div>
-            <div class="item" style="transform: rotateY(315deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=8"></div>
+        <div class="song-info">🎵 Now Playing: Sunn Raha Hai Na Tu</div>
+        <button id="playBtn" class="btn" onclick="handleMusic()">Play Song & Reveal 💖</button>
+        
+        <div id="slider-content" style="display: none; flex-direction: column; align-items: center;">
+            <div class="slider-3d">
+                <div class="item" style="transform: rotateY(0deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=1"></div>
+                <div class="item" style="transform: rotateY(45deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=2"></div>
+                <div class="item" style="transform: rotateY(90deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=3"></div>
+                <div class="item" style="transform: rotateY(135deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=4"></div>
+                <div class="item" style="transform: rotateY(180deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=5"></div>
+                <div class="item" style="transform: rotateY(225deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=6"></div>
+                <div class="item" style="transform: rotateY(270deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=7"></div>
+                <div class="item" style="transform: rotateY(315deg) translateZ(320px);"><img src="https://picsum.photos/200/300?r=8"></div>
+            </div>
+            <button class="btn" onclick="navigate('cake-sec')">Next Step: The Cake 🎂</button>
         </div>
-        <button class="btn" onclick="showCake()">Tap to Cut the Cake 🎂</button>
     </section>
 
     <section id="cake-sec">
         <div class="cake-container" id="cakeEmoji" onclick="handleCakeCut()">🎂</div>
-        <h2 id="cakeText">Make a Wish... then Click!</h2>
+        <h2 id="cakeText">Make a Wish... then Tap to Cut!</h2>
     </section>
 
     <section id="letter-sec">
-        <div class="hidden-letter" id="letterCard">
-            <h2 class="shining-star">🌟 My Shining Star 🌟</h2>
-            <p style="line-height: 1.8; font-size: 1.1rem;">
+        <div class="hidden-letter" style="display: block;">
+            <h2 style="color: var(--star-gold);">🌟 My Shining Star 🌟</h2>
+            <p style="line-height: 1.8;">
                 🌹♥️ <i>"You don't know how much I love you. You are my shining star in every season."</i> ♥️🌹💜
             </p>
-            <p style="color: #ffb3c1;">
-                No matter how dark the night gets, your smile lightens up my world. Every beat of my heart whispers your name.
-            </p>
             <hr style="border: 0.5px solid var(--star-gold); margin: 20px 0;">
-            <h3>Will you stay my Aashiqui forever?</h3>
-            <button class="btn" onclick="sendWhatsApp('YES! Forever and Always! ❤️')">YES! Forever ❤️</button>
-            <button class="btn" onclick="sendWhatsApp('Of course! You are my everything 🌹')">You are my everything 🌹</button>
+            
+            <div id="quiz-area">
+                <p>Do you feel the same way? 🥺</p>
+                <button class="btn" onclick="showLastMsg()">Yes</button>
+                <button class="btn" onclick="alert('Try again! I know you love me! 😉')">No</button>
+            </div>
+
+            <div id="final-area" style="display:none;">
+                <p>Thank you for being you! Click below to send me your love.</p>
+                <button class="btn" onclick="sendFinalWhatsApp()">Thanks for wishing my Birthday ❤️</button>
+            </div>
         </div>
     </section>
 
@@ -111,7 +117,6 @@
             if(count <= 0) {
                 clearInterval(countInterval);
                 navigate('slider-sec');
-                player.play().catch(e => console.log("Autoplay blocked, waiting for click"));
             }
         }, 1000);
 
@@ -120,24 +125,36 @@
             document.getElementById(id).style.display = 'flex';
         }
 
-        function showCake() { navigate('cake-sec'); }
-
-        function handleCakeCut() {
-            document.getElementById('cakeEmoji').innerText = "🍰";
-            document.getElementById('cakeText').innerText = "Yum! Opening your letter...";
-            setTimeout(() => {
-                navigate('letter-sec');
-                document.getElementById('letterCard').style.display = 'block';
-            }, 1500);
+        // 2. Music Toggle
+        function handleMusic() {
+            if (player.paused) {
+                player.play();
+                document.getElementById('playBtn').style.display = 'none';
+                document.getElementById('slider-content').style.display = 'flex';
+            }
         }
 
-        function sendWhatsApp(ans) {
+        // 3. Cake Logic
+        function handleCakeCut() {
+            document.getElementById('cakeEmoji').innerText = "🍰";
+            document.getElementById('cakeText').innerText = "Opening your secret letter...";
+            setTimeout(() => { navigate('letter-sec'); }, 1500);
+        }
+
+        // 4. Quiz Logic
+        function showLastMsg() {
+            document.getElementById('quiz-area').style.display = 'none';
+            document.getElementById('final-area').style.display = 'block';
+        }
+
+        // 5. WhatsApp Logic
+        function sendFinalWhatsApp() {
             const phone = "923256437933";
-            const text = `My Shining Star, my answer is: ${ans}`;
+            const text = "Thanks for wishing my Birthday ❤️ You are my shining star!";
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        // Falling Hearts/Roses/Stars
+        // Falling Decorations
         function spawnParticle() {
             const p = document.createElement('div');
             p.className = 'particle';
@@ -149,7 +166,7 @@
             document.body.appendChild(p);
             setTimeout(() => p.remove(), 5000);
         }
-        setInterval(spawnParticle, 250);
+        setInterval(spawnParticle, 300);
     </script>
 </body>
 </html>
