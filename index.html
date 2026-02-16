@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Noor Fatima 💜</title>
+<title>Birthday Surprise </title>
 
 <style>
 body,html{
@@ -16,7 +16,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* ===== BUTTON STYLE ===== */
+/* Button */
 button{
 padding:12px 25px;
 border:none;
@@ -28,7 +28,7 @@ cursor:pointer;
 margin-top:15px;
 }
 
-/* ===== 3D PHOTO SLIDER ===== */
+/* Slider */
 .slider-3d{
 position:relative;
 width:200px;
@@ -55,10 +55,10 @@ height:100%;
 object-fit:cover;
 }
 
-/* ===== HIDE BIRTHDAY SURPRISE FIRST ===== */
+/* Hide birthday section */
 #birthdaySurprise{display:none;}
 
-/* ===== BIRTHDAY SECOND CODE STYLE ===== */
+/* Birthday theme */
 body.birthday{
 background: linear-gradient(270deg,#ff9a9e,#fad0c4,#ffecd2);
 background-size:800% 800%;
@@ -89,24 +89,21 @@ box-shadow:0 0 20px pink;
 
 <body>
 
-<!-- ================= SONG + SLIDER SECTION ================= -->
-<h2>💖 Birthday Surprise For Noor Fatima 💖</h2>
-<p>Click Play Song to start surprise</p>
+<!-- SONG BUTTON -->
+<h2>💖 Birthday Surprise For Mirha 💖</h2>
+<button onclick="playSong()">Play Song 🎶 Meri Aashiqui</button>
 
-<button onclick="playSong()">Play Song 🎶 Meri Aashiqui Tum Se Hi</button>
-
-<!-- Hidden YouTube Player -->
+<!-- YouTube Player -->
 <div id="ytplayer" style="display:none;">
 <iframe id="ytframe" width="0" height="0"
 src=""
 frameborder="0"
-allow="autoplay; encrypted-media"
-allowfullscreen></iframe>
+allow="autoplay; encrypted-media"></iframe>
 </div>
 
-<!-- Photo Slider -->
-<div id="slider" style="display:none;">
-<div class="slider-3d">
+<!-- SLIDER -->
+<div id="slider">
+<div class="slider-3d" id="sliderBox">
 <div class="item" style="transform:rotateY(0deg) translateZ(300px);"><img src="https://picsum.photos/200/300?1"></div>
 <div class="item" style="transform:rotateY(60deg) translateZ(300px);"><img src="https://picsum.photos/200/300?2"></div>
 <div class="item" style="transform:rotateY(120deg) translateZ(300px);"><img src="https://picsum.photos/200/300?3"></div>
@@ -115,16 +112,15 @@ allowfullscreen></iframe>
 <div class="item" style="transform:rotateY(300deg) translateZ(300px);"><img src="https://picsum.photos/200/300?6"></div>
 </div>
 
-<button onclick="showBirthday()">Continue Surprise 🎁</button>
+<button onclick="continueSurprise()">Continue Surprise 🎁</button>
 </div>
 
-<!-- ================= YOUR BIRTHDAY SURPRISE CODE ================= -->
+<!-- BIRTHDAY PAGE -->
 <div id="birthdaySurprise">
-
 <div class="container">
 
 <div id="step1" class="step active">
-<h2>Dear Noor Fatima 💜</h2>
+<h2>Dear Mirha 💜</h2>
 <p>A Birthday Surprise</p>
 <button onclick="startSurprise()">Start Surprise</button>
 </div>
@@ -137,71 +133,53 @@ allowfullscreen></iframe>
 </div>
 
 <div id="step3" class="step">
-<h2>For My Sweet Sister 🌹</h2>
-<p>Tap the heart</p>
+<h2>For My Sweet heart 🌹</h2>
 <div style="font-size:70px;cursor:pointer;" onclick="nextStep(4)">❤️</div>
 </div>
 
 <div id="step4" class="step">
 <h2>Cut the Cake 🎂</h2>
 <div class="cake" onclick="nextStep(5)">🎂</div>
-<p>Tap the cake</p>
 </div>
 
-<!-- WISHING LETTER -->
 <div id="step5" class="step">
 <h2>💌 Wishing Letter</h2>
 <p style="background:white;color:black;padding:15px;border-radius:12px;">
-Dear Noor Fatima,<br><br>
-You are not only my sister but my best friend 💖  
-May Allah bless you with happiness and success.  
-Always smile like a shining star ⭐  
-<br><br>
-Love,<br><b>🌹♥️</b>
+Dear Mirha,<br><br>
+You are my shining star ⭐<br>
+May Allah bless you always 💖<br><br>
+Love 🌹
 </p>
-<button onclick="nextStep(6)">Final Surprise 🎉</button>
-</div>
-
-<div id="step6" class="step">
-<h2>🎉 HAPPY BIRTHDAY NOOR FATIMA 🎉</h2>
-<p>Always smile like a shining star 🌹♥️💜</p>
 </div>
 
 </div>
 </div>
 
-<!-- ================= JAVASCRIPT ================= -->
 <script>
-// PLAY SONG + SHOW SLIDER
+// PLAY SONG ONLY WHEN CLICK
 function playSong(){
 document.getElementById("ytplayer").style.display="block";
-document.getElementById("ytframe").src =
-"https://www.youtube.com/embed/ExxkKqLhY1w?autoplay=1&loop=1";
-
-document.getElementById("slider").style.display="block";
+document.getElementById("ytframe").src="https://www.youtube.com/embed/ExxkKqLhY1w?autoplay=1";
 }
 
-// SHOW BIRTHDAY SURPRISE
-function showBirthday(){
+// STOP SLIDER AND OPEN NEXT PAGE
+function continueSurprise(){
+document.getElementById("sliderBox").style.animation="none"; // stop rotate
+document.getElementById("slider").style.display="none"; // hide slider
 document.getElementById("birthdaySurprise").style.display="block";
 document.body.classList.add("birthday");
-window.scrollTo(0, document.body.scrollHeight);
 }
 
-// STEP SYSTEM
+// Steps
 function nextStep(n){
 document.querySelectorAll(".step").forEach(s=>s.classList.remove("active"));
 document.getElementById("step"+n).classList.add("active");
 }
-
-function startSurprise(){
-nextStep(2);
-}
-
+function startSurprise(){nextStep(2);}
 function checkName(){
 let n=document.getElementById("nameInput").value.toLowerCase();
 if(n.includes("noor")) nextStep(3);
-else alert("Type Noor Fatima 😁");
+else alert("Type Mirha 😁");
 }
 </script>
 
